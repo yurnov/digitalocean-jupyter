@@ -1,0 +1,5 @@
+--- 
+- name: remove droplet
+  hosts: localhost ansible_connection=local
+  roles:  
+    - do_remove_droplet

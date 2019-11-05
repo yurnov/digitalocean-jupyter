@@ -1,0 +1,32 @@
+---
+# tasks file for do_create_droplet
+- name: Droplet list
+  uri:
+    url: https://api.digitalocean.com/v2/droplets
+    method: GET
+    return_content: yes
+    headers: 
+      Content-Type: application/json
+      Authorization: Bearer {{ do_api }}
+  register: do_droplets
+
+
+- set_fact:
+    droplets: "{{ do_droplets.content | from_json }}"
+
+- set_fact:
+    droplet_id: "{{ droplets | json_query(jupyther_id) }}"
+  vars:
+    jupyther_id: "droplets[?name=='{{ droplet_hostname }}'].id"
+
+- debug:
+    msg: "{{ droplet_id }}"
+
+- name: Destroy droplet
+  uri:
+    url: https://api.digitalocean.com/v2/droplets/{{ droplet_id[0] }}
+    method: DELETE
+    status_code: 204
+    headers: 
+      Content-Type: application/json
+      Authorization: Bearer {{ do_api }}
