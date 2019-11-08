@@ -47,5 +47,4 @@
       register: jupyter_token
 
     - debug:
-        msg: "Open following in your browser: http://{{ inventory_hostname }}:8888 and use access token {{ jupyter_token.stdout_lines[0] }}"  
-      
+        msg: "Open following in your browser: http://{{ inventory_hostname }}:8888 and use access token {{ jupyter_token.stdout_lines[0] }}"

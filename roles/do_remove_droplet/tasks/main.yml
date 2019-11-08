@@ -19,8 +19,8 @@
   vars:
     jupyther_id: "droplets[?name=='{{ droplet_hostname }}'].id"
 
-- debug:
-    msg: "{{ droplet_id }}"
+# - debug:
+#     msg: "{{ droplet_id }}"
 
 - name: Destroy droplet
   uri:
